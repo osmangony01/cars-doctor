@@ -68,7 +68,7 @@ const Register = () => {
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary" type='submit'>Register</button>
                             </div>
-                            <small className='text-end'>You have account? <Link className='text-orange-600 font-bold'>Login</Link></small>
+                            <small className='text-end'>You have account? <Link to="/login" className='text-orange-600 font-bold'>Login</Link></small>
                         </form>
                     </div>
                 </div>
