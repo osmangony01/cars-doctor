@@ -42,6 +42,26 @@ const AuthProvider = ({ children }) => {
             console.log('auth state change : ', currentUser);
             setLoading(false);
             setUser(currentUser);
+            if (currentUser && currentUser.email) {
+                const user = {
+                    loggedUser: currentUser.email
+                };
+                fetch('http://localhost:5000/jwt', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/type'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('jwt response', data);
+                        localStorage.setItem('car_access_token', data.token)
+                    })
+            }
+            else{
+                localStorage.removeItem('car_access_token');
+            }
         })
         return () => {
             unsubscribe();

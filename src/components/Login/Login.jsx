@@ -2,29 +2,31 @@ import { useContext } from 'react';
 import loginImg from '../../../public/assets/images/login/login.svg';
 import Navbar from '../Navbar/Navbar';
 import { AuthContext } from '../../provider/AuthProvider';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleLogIn = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email,password);
+        console.log(email, password);
 
         signIn(email, password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
+                navigate(from, { replace: true })
                 form.reset();
-                navigate("/", { replace: true })
             })
             .catch(error => console.log(error.message))
-
     }
 
     return (
